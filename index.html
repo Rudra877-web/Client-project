@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree Charbhuja Vasan Bhandar | Premium Kitchenware</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500&family=Montserrat:wght@900&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Vanilla Tilt JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <!-- Tailwind configuration setup -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#D4AF37',
+                        charcoal: '#111111',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hide Default Cursor */
+        body { cursor: none; }
+        
+        /* Custom Magnetic Cursor */
+        .cursor-dot {
+            width: 8px; height: 8px;
+            background: #D4AF37;
+            position: fixed; top: 0; left: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background 0.3s;
+        }
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            position: fixed; top: 0; left: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, transform 0.1s ease-out;
+        }
+        .cursor-hover .cursor-dot {
+            width: 0px; height: 0px;
+        }
+        .cursor-hover .cursor-outline {
+            width: 60px; height: 60px;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 1);
+        }
+
+        /* Continuous Marquee Banner */
+        .marquee-container {
+            width: 100%; overflow: hidden;
+            background: linear-gradient(90deg, #0a0a0a, #1a1a1a, #0a0a0a);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 1rem 0;
+            position: relative; z-index: 20;
+            perspective: 500px;
+        }
+        .marquee-content {
+            display: flex; white-space: nowrap;
+            animation: marquee 20s linear infinite;
+            transform: rotateX(10deg);
+        }
+        .marquee-item {
+            font-family: '"Playfair Display"', serif;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(212, 175, 55, 0.6);
+            font-size: 1.5rem; text-transform: uppercase;
+            letter-spacing: 0.2em; padding: 0 3rem;
+        }
+        @keyframes marquee {
+            0% { transform: rotateX(10deg) translateX(0%); }
+            100% { transform: rotateX(10deg) translateX(-50%); }
+        }
+
+        /* Scroll Reveal Utility */
+        .scroll-reveal {
+            opacity: 0; transform: translateY(50px) rotateX(-10deg);
+            transition: opacity 1s cubic-bezier(0.2, 1, 0.3, 1), transform 1s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .scroll-reveal.visible {
+            opacity: 1; transform: translateY(0) rotateX(0);
+        }
+        
+        /* Particle Canvas */
+        #particleCanvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 5;
+        }
+    </style>
+</head>
+
+<body class="bg-charcoal text-white antialiased selection:bg-gold selection:text-black overflow-x-hidden font-sans">
+    
+    <!-- Custom Cursor & Particle Canvas -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen relative flex items-center justify-center p-6 w-full">
+        <!-- Cinematic Rendered Background -->
+        <div class="fixed inset-0 z-0 bg-black">
+            <img src="premium_background.png" alt="Premium Brand Background"
+                class="w-full h-full object-cover opacity-90 scale-105 animate-[slowZoom_20s_infinite_alternate] blur-sm sm:blur-none">
+            <div
+                class="absolute inset-0 bg-black/30 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_0%,_rgba(0,0,0,0.8)_80%)]">
+            </div>
+            <!-- Dynamic Grain Overlay -->
+            <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E');">
+            </div>
+        </div>
+
+        <!-- Main Hero Content with 3D Perspective -->
+        <main
+            class="w-full flex flex-col items-center justify-center text-center max-w-screen-2xl mx-auto z-20 relative px-4 [perspective:1000px]">
+
+            <!-- 3D Extruded Brand Name (Silver Block) -->
+            <div class="mb-16 md:mb-24 z-30 animate-lux-reveal scroll-reveal"
+                style="animation-delay: 0.2s; animation-duration: 2s; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); animation-fill-mode: forwards; opacity: 0;">
+                <h1 class="flex flex-col items-center">
+                    <span
+                        class="font-serif font-black text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-[0.3em] leading-tight uppercase text-center text-3d-silver"
+                        data-text="SHREE CHARBHUJA">
+                        SHREE CHARBHUJA
+                    </span>
+                    <span
+                        class="font-serif font-black text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-[0.3em] leading-tight uppercase text-center text-3d-silver"
+                        data-text="VASAN BHANDAR">
+                        VASAN BHANDAR
+                    </span>
+                </h1>
+            </div>
+
+            <!-- 3D Extruded Mainland (Silver Block) -->
+            <div class="flex flex-col items-center gap-2 md:gap-4 mb-20 md:mb-28 z-30">
+                <div class="animate-lux-reveal scroll-reveal"
+                    style="animation-delay: 1.0s; animation-duration: 2s; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); animation-fill-mode: forwards; opacity: 0;">
+                    <h2 class="font-serif font-black text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wide leading-tight text-3d-silver"
+                        data-text="Premium Quality.">
+                        Premium Quality.
+                    </h2>
+                </div>
+                <!-- 3D Extruded Sub-headline (Gold Block) -->
+                <div class="animate-lux-reveal scroll-reveal"
+                    style="animation-delay: 1.8s; animation-duration: 2s; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); animation-fill-mode: forwards; opacity: 0;">
+                    <h2 class="font-serif font-black italic text-gold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wide leading-tight text-3d-gold"
+                        data-text="Perfect Utility.">
+                        Perfect Utility.
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Description Paragraph (Final Settle) -->
+            <div class="max-w-xl md:max-w-2xl lg:max-w-3xl px-6 z-30 animate-lux-reveal scroll-reveal"
+                style="animation-delay: 2.6s; animation-duration: 2.5s; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); animation-fill-mode: forwards; opacity: 0;">
+                <p
+                    class="font-sans text-gray-400 text-[10px] md:text-xs lg:text-sm leading-relaxed tracking-[0.05em] text-center">
+                    Welcome to <span class="text-white font-semibold">SHREE CHARBHUJA VASAN BHANDAR</span> – your
+                    trusted destination for high-quality stainless steel utensils and modern kitchen appliances in
+                    Ahmedabad. We offer durable, affordable, and stylish kitchen solutions for homes and businesses.
+                </p>
+            </div>
+
+            <!-- Interaction Button (Final Stagger) -->
+            <div class="mt-20 w-full flex flex-col items-center gap-8 animate-lux-reveal scroll-reveal"
+                style="animation-delay: 2.8s; animation-duration: 2s; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); animation-fill-mode: forwards; opacity: 0;">
+                <a href="https://wa.me/919624164471"
+                    class="group relative px-8 py-3 rounded-full border border-gold/30 bg-black/40 backdrop-blur-md hover:bg-gold/10 transition-all duration-500 overflow-hidden">
+                    <span class="relative z-10 text-gold font-sans tracking-widest text-sm uppercase">Quick WhatsApp
+                        Inquiry</span>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                    </div>
+                </a>
+            </div>
+        </main>
+    </section>
+
+    <!-- Continuous Scrolling Marquee -->
+    <div class="marquee-container scroll-reveal">
+        <div class="marquee-content">
+            <span class="marquee-item">PREMIUM QUALITY</span>
+            <span class="marquee-item">STAINLESS STEEL</span>
+            <span class="marquee-item">MODERN KITCHENWARE</span>
+            <span class="marquee-item">LONG LASTING</span>
+            <span class="marquee-item">LUXURY UTILITY</span>
+            <span class="marquee-item">PREMIUM QUALITY</span>
+            <span class="marquee-item">STAINLESS STEEL</span>
+            <span class="marquee-item">MODERN KITCHENWARE</span>
+            <span class="marquee-item">LONG LASTING</span>
+            <span class="marquee-item">LUXURY UTILITY</span>
+        </div>
+    </div>
+
+    <!-- Trusted Brands Section (Expert UI/UX Rebuild) -->
+    <section class="w-full bg-transparent py-24 px-6 relative z-10 border-y border-white/5 overflow-hidden backdrop-blur-[2px]">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(61,46,7,0.3)_0%,_transparent_70%)] pointer-events-none">
+        </div>
+        <div class="max-w-screen-2xl mx-auto relative z-10">
+            <h3 class="font-serif italic text-gold text-2xl md:text-3xl text-center mb-20 tracking-[0.15em] opacity-80 uppercase scroll-reveal">
+                Brands We Trust</h3>
+            <div class="flex flex-wrap justify-center gap-6 md:gap-10">
+                <div class="brand-card-3d w-[calc(50%-1.5rem)] md:w-[calc(33.33%-2rem)] lg:w-[calc(24%-1rem)] group scroll-reveal" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="brand-inner-wrapper"><span class="text-3d-brand" data-text="PRESTIGE">PRESTIGE</span></div>
+                </div>
+                <div class="brand-card-3d w-[calc(50%-1.5rem)] md:w-[calc(33.33%-2rem)] lg:w-[calc(24%-1rem)] group scroll-reveal" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="brand-inner-wrapper"><span class="text-3d-brand" data-text="HAWKINS">HAWKINS</span></div>
+                </div>
+                <div class="brand-card-3d w-[calc(50%-1.5rem)] md:w-[calc(33.33%-2rem)] lg:w-[calc(24%-1rem)] group scroll-reveal" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="brand-inner-wrapper"><span class="text-3d-brand" data-text="BOSS">BOSS</span></div>
+                </div>
+                <div class="brand-card-3d w-[calc(50%-1.5rem)] md:w-[calc(33.33%-2rem)] lg:w-[calc(24%-1rem)] group scroll-reveal" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="brand-inner-wrapper"><span class="text-3d-brand" data-text="SUJATA">SUJATA</span></div>
+                </div>
+                <div class="brand-card-3d w-[calc(50%-1.5rem)] md:w-[calc(33.33%-2rem)] lg:w-[calc(24%-1rem)] group scroll-reveal" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="brand-inner-wrapper"><span class="text-3d-brand" data-text="CELLO">CELLO</span></div>
+                </div>
+                <div class="brand-card-3d w-[calc(50%-1.5rem)] md:w-[calc(33.33%-2rem)] lg:w-[calc(24%-1rem)] group scroll-reveal" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="brand-inner-wrapper"><span class="text-3d-brand" data-text="PIGEON">PIGEON</span></div>
+                </div>
+                <div class="brand-card-3d w-[calc(50%-1.5rem)] md:w-[calc(33.33%-2rem)] lg:w-[calc(24%-1rem)] group scroll-reveal" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="brand-inner-wrapper"><span class="text-3d-brand" data-text="BUTTERFLY">BUTTERFLY</span></div>
+                </div>
+                <div class="brand-card-3d w-[calc(50%-1.5rem)] md:w-[calc(33.33%-2rem)] lg:w-[calc(24%-1rem)] group scroll-reveal" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                    <div class="brand-inner-wrapper"><span class="text-3d-brand" data-text="JVL">JVL</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Culinary Collection Section -->
+    <section class="w-full bg-transparent py-16 md:py-20 px-6 relative z-10 overflow-hidden">
+        <!-- Subtle dark overlay behind products so they don't get lost in the busy background -->
+        <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
+        <div class="max-w-screen-xl mx-auto flex flex-col items-center">
+            <h3 class="font-serif italic text-gold text-2xl md:text-3xl text-center mb-12 tracking-wide scroll-reveal">Featured Products</h3>
+            <div class="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8 max-w-3xl w-full">
+                <!-- Product grid placeholders (10 Identical Slots) -->
+                <div class="scroll-reveal aspect-square flex items-center justify-center transition-all duration-500 group relative" data-tilt data-tilt-max="15" data-tilt-speed="400">
+                    <img src="no.1.png" alt="Product 1" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                </div>
+                <div class="scroll-reveal aspect-square flex items-center justify-center transition-all duration-500 group relative" data-tilt data-tilt-max="15" data-tilt-speed="400">
+                    <img src="no.2.png" alt="Product 2" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                </div>
+                <div class="scroll-reveal aspect-square flex items-center justify-center transition-all duration-500 group relative" data-tilt data-tilt-max="15" data-tilt-speed="400">
+                    <img src="no.3.png" alt="Product 3" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                </div>
+                <div class="scroll-reveal aspect-square flex items-center justify-center transition-all duration-500 group relative" data-tilt data-tilt-max="15" data-tilt-speed="400">
+                    <img src="no.4.png" alt="Product 4" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                </div>
+                <div class="scroll-reveal aspect-square flex items-center justify-center transition-all duration-500 group relative" data-tilt data-tilt-max="15" data-tilt-speed="400">
+                    <img src="no.5.png" alt="Product 5" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                </div>
+                <div class="scroll-reveal aspect-square flex items-center justify-center transition-all duration-500 group relative" data-tilt data-tilt-max="15" data-tilt-speed="400">
+                    <img src="no.6.png" alt="Product 6" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                </div>
+                <div class="scroll-reveal aspect-square flex items-center justify-center transition-all duration-500 group relative" data-tilt data-tilt-max="15" data-tilt-speed="400">
+                    <img src="no.7.png" alt="Product 7" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                </div>
+                <div class="scroll-reveal aspect-square flex items-center justify-center transition-all duration-500 group relative" data-tilt data-tilt-max="15" data-tilt-speed="400">
+                    <img src="no.8.png" alt="Product 8" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                </div>
+                <div class="scroll-reveal aspect-square flex items-center justify-center transition-all duration-500 group relative" data-tilt data-tilt-max="15" data-tilt-speed="400">
+                    <img src="no.9.png" alt="Product 9" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                </div>
+                <div class="scroll-reveal aspect-square flex items-center justify-center transition-all duration-500 group relative" data-tilt data-tilt-max="15" data-tilt-speed="400">
+                    <img src="no.10.png" alt="Product 10" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 group-hover:drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section (Expert UI/UX 3D Rebuild) -->
+    <footer class="relative w-full bg-transparent py-24 px-6 border-t border-white/5 overflow-hidden z-20 backdrop-blur-sm">
+        <div class="absolute inset-0 bg-black/60 pointer-events-none"></div>
+        <!-- Persistent Ambient Glow -->
+        <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(61,46,7,0.5)_0%,_transparent_80%)] pointer-events-none">
+        </div>
+
+        <div class="max-w-screen-2xl mx-auto flex flex-col items-center relative z-10">
+            <!-- Brand Marquee (3D Extruded) -->
+            <div class="mb-16 text-center">
+                <span class="text-3d-silver text-2xl md:text-3xl tracking-[0.2em] font-serif uppercase"
+                    data-text="SHREE CHARBHUJA">SHREE CHARBHUJA</span>
+                <p class="text-gray-500 text-xs mt-4 tracking-[0.4em] uppercase">Excellence Since 1995</p>
+            </div>
+            <!-- Footer Column (Balanced Layout: Text Left, 3D Asset Right) -->
+            <div
+                class="flex flex-col md:flex-row gap-16 md:gap-32 w-full max-w-6xl justify-between items-start md:items-center">
+
+                <!-- Inquiry & Showroom (Left) -->
+                <div class="flex flex-col gap-12 justify-start items-start">
+                    <div class="flex flex-col items-start gap-4">
+                        <h4 class="text-gold text-xs font-sans tracking-[0.3em] uppercase opacity-70">Quick Inquiry</h4>
+                        <a href="tel:919624164471" class="text-3d-gold text-2xl md:text-3xl font-serif italic"
+                            data-text="9624164471">9624164471</a>
+                    </div>
+                    <div class="flex flex-col items-start gap-4">
+                        <h4 class="text-gold text-[10px] font-sans tracking-[0.3em] uppercase opacity-70">Main Showroom
+                        </h4>
+                        <p class="text-white/80 text-xs md:text-sm leading-relaxed max-w-[400px] tracking-wide">
+                            E/339 Saraswati Nagar, IOC Road, <br>
+                            Chandkheda, Ahmedabad 382424
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3D Asset Section (Right: Mark + Button) -->
+                <div class="flex flex-col items-center gap-8">
+                    <div class="footer-3d-card group relative">
+                        <!-- Subtle Radiant Glow (Permanent but intensifies) -->
+                        <div
+                            class="absolute inset-0 bg-gold/10 blur-3xl opacity-40 group-hover:opacity-100 transition-opacity duration-1000">
+                        </div>
+                        <div
+                            class="footer-3d-inner p-4 bg-white/95 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] border border-white/10 transition-transform duration-700 ease-out">
+                            <img src="file:///c:/Users/Admin/OneDrive/Desktop/new/image_25.png" alt="Brand Mark"
+                                class="w-32 h-32 md:w-36 md:h-36 rounded-lg transition-all duration-700">
+                        </div>
+                    </div>
+
+                    <!-- Instagram CTA Button -->
+                    <a href="file:///C:/Users/Infinity1/Downloads/hii/hii/int-logo.jpeg"
+                        target="_blank"
+                        class="relative group/btn px-8 py-3 bg-zinc-900 border border-gold/20 rounded-full overflow-hidden transition-all duration-500 hover:border-gold/50 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                        <span
+                            class="relative z-10 text-3d-gold text-[10px] md:text-xs font-sans tracking-[0.3em] uppercase"
+                            data-text="View Instagram">View Instagram</span>
+                        <!-- Hidden Hover Glow -->
+                        <div
+                            class="absolute inset-0 bg-gold/5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        /* 3D Core Design System */
+        .animate-lux-reveal {
+            animation-name: lux-reveal;
+        }
+
+        @keyframes lux-reveal {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) translateZ(-150px) rotateX(-25deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) translateZ(0) rotateX(0);
+            }
+        }
+
+        @keyframes slowZoom {
+            from {
+                transform: scale(1.05);
+            }
+
+            to {
+                transform: scale(1.15);
+            }
+        }
+
+        /* 3D Metal Typography (Sharpened) */
+        .text-3d-silver {
+            background: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 50%, #999999 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 1px 0 #a9a9a9, 0 2px 0 #969696, 0 3px 0 #858585, 0 4px 0 #737373, 0 5px 15px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            transform: translateZ(0);
+            will-change: transform, text-shadow;
+        }
+
+        .text-3d-gold {
+            background: linear-gradient(to bottom, #FFF2CD, #D4AF37, #997A15);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 1px 0 #997a15, 0 2px 0 #806611, 0 3px 0 #66520e, 0 4px 0 #4d3d0a, 0 5px 15px rgba(0, 0, 0, 0.9);
+            position: relative;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            transform: translateZ(0);
+            will-change: transform, text-shadow;
+        }
+
+        /* Shine Effect */
+        .text-3d-silver::after,
+        .text-3d-gold::after,
+        .text-3d-brand::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 1s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Footer 3D Card System */
+        .footer-3d-card {
+            perspective: 1200px;
+        }
+
+        .footer-3d-inner {
+            transform-style: preserve-3d;
+            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-3d-card:hover .footer-3d-inner {
+            transform: rotateY(15deg) rotateX(10deg) translateZ(30px);
+            box-shadow: 20px 30px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(212, 175, 55, 0.05);
+        }
+
+        /* Brand Grid CSS */
+        .brand-card-3d {
+            perspective: 1000px;
+        }
+
+        .brand-inner-wrapper {
+            background: #18181b;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 3rem 1.5rem;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-card-3d:hover .brand-inner-wrapper {
+            transform: translateY(-12px) scale(1.05) translateZ(20px);
+            background: #1e1e24;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .text-3d-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            background: linear-gradient(to bottom, #d1d5db, #9ca3af, #d4af37, #997a15);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 1px 0 #5e460b, 0 2px 0 #4d3a09, 0 3px 0 #3b2c07, 0 4px 10px rgba(0, 0, 0, 0.8);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        @media (min-width: 768px) {
+            .text-3d-brand {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+
+    <script>
+        // Custom Magnetic Cursor Logic
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            cursorOutline.style.left = `${posX}px`;
+            cursorOutline.style.top = `${posY}px`;
+        });
+
+        // Add hover effect to interactive elements
+        const iterables = document.querySelectorAll('a, button, .brand-inner-wrapper, .aspect-square');
+        iterables.forEach((el) => {
+            el.addEventListener('mouseover', () => {
+                document.body.classList.add('cursor-hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                document.body.classList.remove('cursor-hover');
+            });
+        });
+
+        // Intersection Observer for Scroll Reveals
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Canvas Particle System (Floating Gold Dust)
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.z = Math.random() * 2 + 0.1; // 3D depth illusion
+                this.size = (Math.random() * 1.5 + 0.5) / this.z;
+                this.speedX = (Math.random() - 0.5) * 0.3 / this.z;
+                this.speedY = (Math.random() - 0.5) * 0.3 / this.z - 0.2; // Slowly moving up
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Reset if bounds exceeded
+                if(this.y < 0) this.y = height;
+                if(this.x < 0) this.x = width;
+                if(this.x > width) this.x = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for(let i = 0; i < 150; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html>
